@@ -1,24 +1,51 @@
 import React, { useState } from 'react';
-import signup from '../helpers/auth.js';
+import {signup} from '../helpers/auth.js';
+import {useHistory} from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 function Signup(props) {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [name,setName]=useState("");
-    const handleSubmit=(email,password)=>{
+    const [error,setError]=useState("");
+    const history =useHistory();
 
+
+    const handleSubmit= async()=>{
+       try
+       {let user=await signup(email,password);
+        console.log("Signup Success ",user)
+        history.push('/signin');
+       }
+       catch(error){setError(error);
+        console.log(error);
+        console.log("hi this is an error");}
+       
     }
+    if(localStorage.getItem("userInfo")){
+        return <Redirect to='/chat'/>;
+        }
     return (
+       
         <div> 
-            <div>
-            <label>Name</label>
-                <input type="text" onChange={(e)=>setName(e.target.value)}></input>
-                <label>Email</label>
-                <input type="email" onChange={(e)=>setEmail(e.target.value)}></input>
-                <label>Password</label>
-                <input type="password" onChange={(e)=>setEmail(e.target.value)}></input>
+            {error? <h3>This is an error</h3>:
+            <div className="signnup">
+            <div className="name">
+             <label>Name</label>
+            <input type="text" onChange={(e)=>setName(e.target.value)}/>
             </div>
-            <button>Signup</button>
+            <div className="email">
+              <label>Email</label>
+              <input type="email" onChange={(e)=>setEmail(e.target.value)}/>
+            </div>
+            <div className="email">
+              <label>Password</label>
+              <input type="text" onChange={(e)=>setPassword(e.target.value)}/>
+            </div>
+            <button onClick={handleSubmit}>Signup</button>
+        </div>}
+            
+            
         </div>
     );
 }

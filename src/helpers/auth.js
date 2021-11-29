@@ -1,16 +1,18 @@
 import React from 'react';
 import { auth } from '../firebase';
 
-export function signup(props) {
+export async function signup(email,password) {
+    console.log("email ",email,"password",password); 
     return (
-        auth().createUserWithEmailAndPPassword(email,password)
-        
+        auth.createUserWithEmailAndPassword(email,password)
     );
 }
 export function signin(email,password){
-    return auth().signInWithEmailAndPassword(email,password);
+    
+    return auth.signInWithEmailAndPassword(email,password);
 }
 export function logout(){
-    return auth().signout();
+    localStorage.removeItem("userInfo");
+   return auth.signOut;
 }
 
