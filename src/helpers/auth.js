@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { auth } from '../firebase';
 
 export async function signup(email,password) {

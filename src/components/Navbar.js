@@ -21,7 +21,7 @@ function Navbar(props) {
                     </div>
                 </div>
             </div>
-            <img  src={pic}></img>
+            <img alt="name" src={pic}></img>
 
         </div>
     );
