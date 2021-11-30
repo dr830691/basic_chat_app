@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {signup} from '../helpers/auth.js';
 import {useHistory} from 'react-router-dom';
 import { Redirect } from 'react-router';
+import { registerUsersForChat } from '../helpers/db.js';
 
 function Signup(props) {
     const [email,setEmail]=useState("");
@@ -16,6 +17,7 @@ function Signup(props) {
        {let user=await signup(email,password);
         console.log("Signup Success ",user)
         history.push('/signin');
+        registerUsersForChat(name,email);
        }
        catch(error){setError(error);
         console.log(error);
