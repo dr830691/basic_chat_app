@@ -37,7 +37,7 @@ function App() {
   return (
     <div className="App">
       <h1>Hello World</h1>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Navbar pic={pic}/>
         <Switch>
          <Route path="/" exact component={Home}/>
